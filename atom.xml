@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ 
+ <title>Snoopymuc's home</title>
+ <link href="http://snoopymuc.github.io/" rel="self"/>
+ <link href="http://snoopymuc.github.io"/>
+ <updated>2014-04-27T20:51:46+02:00</updated>
+ <id>http://snoopymuc.github.io</id>
+ <author>
+   <name>Snoopy MUC</name>
+   <email>snoopymuc@googlemail.com</email>
+ </author>
+
+ 
+ <entry>
+   <title>Hotmail Postfix</title>
+   <link href="http://snoopymuc.github.io/posts,%20postfix/2014/04/27/hotmail-postfix"/>
+   <updated>2014-04-27T00:00:00+02:00</updated>
+   <id>http://snoopymuc.github.io/posts,%20postfix/2014/04/27/hotmail-postfix</id>
+   <content type="html">&lt;h2&gt;TLSv1 issue with hotmail, smtp-mail.outlook.com&lt;/h2&gt;
+
+&lt;p&gt;When using the hotmail-server to deliver eMails, authenticating at that server with postfix/SASL results in the error logged in the mail syslogfile:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;... postfix/smtp[22318]: Untrusted TLS connection established to smtp-mail.outlook.com[65.55.162.200]:587: TLSv1 with cipher DES-CBC3-SHA (168/168 bits)
+... postfix/smtp[22318]: warning: TLS library problem: 22318:error:1408F10B:SSL routines:SSL3_GET_RECORD:wrong version number:s3_pkt.c:337:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Debugging with &lt;code&gt;openssl s_client&lt;/code&gt; confirmed, at least with some of Hotmails servers:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;openssl s_client -starttls smtp -connect smtp-mail.outlook.com:587 -crlf
+...
+ehlo some.name
+...
+250-AUTH LOGIN PLAIN XOAUTH2
+250 OK
+140393594386088:error:1408F10B:SSL routines:SSL3_GET_RECORD:wrong version number:s3_pkt.c:337:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;All okay with SSLv3 only, &lt;code&gt;openssl s_client -starttls smtp -connect smtp-mail.outlook.com:587 -crlf -ssl3&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2&gt;enforce SSLv3 with Hotmail&lt;/h2&gt;
+
+&lt;p&gt;With the framework in &lt;code&gt;main.cf&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+sender_dependent_relayhost_maps = hash:/etc/postfix/sender_relay
+sender_dependent_default_transport_maps = hash:/etc/postfix/sender_dependent_transport
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;master.cf&lt;/code&gt; requires a specific transport defined:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;smtpsaslssl         unix    -       -       n       -       -       smtp
+        -o smtp_tls_mandatory_protocols=!SSLv2,!TLSv1
+        -o smtp_tls_protocols=!SSLv2,!TLSv1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;use the specific transport, &lt;code&gt;/etc/postfix/sender_dependent_transport&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;&amp;lt;hotmail_address&amp;gt;   smtpsaslssl:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;together with the entry in &lt;code&gt;sasl_passwd&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;&amp;lt;hotmail_address&amp;gt;   &amp;lt;hotmail_address&amp;gt;:&amp;lt;hotmail_password&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;and the entry in &lt;code&gt;sender_relay&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;&amp;lt;hotmail_address&amp;gt;   [smtp-mail.outlook.com]:587
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;... &lt;strong&gt;&lt;em&gt;works for me&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;... postfix/smtp[3325]: Untrusted TLS connection established to smtp-mail.outlook.com[65.55.96.11]:25: SSLv3 with cipher RC4-MD5 (128/128 bits)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Gen2 Installnotes</title>
+   <link href="http://snoopymuc.github.io/posts,%20gentoo/2013/10/03/gen2-installnotes"/>
+   <updated>2013-10-03T00:00:00+02:00</updated>
+   <id>http://snoopymuc.github.io/posts,%20gentoo/2013/10/03/gen2-installnotes</id>
+   <content type="html">&lt;h2&gt;Gen2 installation&lt;/h2&gt;
+
+&lt;p&gt;Notes on the Gentoo-Installation I did on my Dell 3440 Netbook, based on the &lt;a href=&quot;https://www.gentoo.org/doc/en/handbook/handbook-amd64.xml&quot;&gt;Gentoo Installation Handbook&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In my humble opinion Windows applications are ubiquitous  still, so I wanted to install Gentoo additional to the pre-installed Windows flavor. For mobiles it should be a matter of course to have at least private data encrypted --- installing Gentoo on an encrypted disk is my lazy choice.&lt;/p&gt;
+
+&lt;p&gt;I&amp;#39;m not a friend of a &amp;quot;one partition fits it all&amp;quot; approach, &lt;em&gt;mount&lt;/em&gt;-flags disallowing eg. devices on the /home-partition are a very basic means of increasing security - LVM the choice to be flexible. EXT4 allows online reduction and seems to be a path towards BTRFS --- else my experiences with JFS were very good.&lt;/p&gt;
+
+&lt;p&gt;With the chosen crypt-parameters here&amp;#39;s a brief summary of the initial steps:&lt;/p&gt;
+
+&lt;h3&gt;setting up the encrypted physical volume&lt;/h3&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;# SHRINK Windows, using the Windows tool
+# define a physical partition, later for /boot --- sda2
+# define one partition covering &amp;quot;the rest&amp;quot; --- sda6
+fdisk /dev/sda
+# luksFormat partition
+cryptsetup -y --cipher twofish-cbc-essiv:sha256 --key-size 256 luksFormat /dev/sda6
+# make partition available
+cryptsetup luksOpen /dev/sda6 root
+# 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;prepare logical volumes&lt;/h3&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;# defining the physical volume on luks container
+pvcreate /dev/mapper/root
+# define the volume group and the logical volumes
+lvcreate -L8GB -n swap vg
+lvcreate -L5GB -n root vg
+lvcreate -L15GB -n usr vg
+lvcreate -L5GB -n var vg
+lvcreate -L10GB -n home vg
+lvcreate -L1.5GB -n opt vg
+# ensure boot-manager will find the kernel+initrd
+# set aside a physical partition containing the /boot-data
+mkfs.ext2 /dev/sda5
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;assemble prepared partitions into the /mnt/gentoo - mountpoint used for installation&lt;/h3&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;# create &amp;amp; use swap
+mkswap /dev/vg/swap
+swapon /dev/vg/swap
+for i in root usr var home opt; do mkfs.ext4 /dev/vg/$i; done
+mount /dev/vg/root /mnt/gentoo/
+mkdir /mnt/gentoo/boot
+mount /dev/sda5 /mnt/gentoo/boot
+# spot the udev&amp;#39;ified name of the network-interface and bring it to life
+net-setup enp7s0
+mkdir /mnt/gentoo/{home,opt,var,usr}
+for i in home opt usr var; do mount /dev/vg/$i /mnt/gentoo/$i; done
+cd /mnt/gentoo/
+# continue with (https://www.gentoo.org/doc/en/handbook/handbook-amd64.xml)
+links http://www.gentoo.org/main/en/mirrors.xml
+tar xvjpf stage3-amd64-20130822.tar.bz2
+vi /mnt/gentoo/etc/portage/make.conf
+mirrorselect -i -r -o &amp;gt;&amp;gt; /mnt/gentoo/etc/portage/make.conf
+cp -L /etc/resolv.conf /mnt/gentoo/etc/
+vi /mnt/gentoo/etc/resolv.conf 
+mount -t proc non /mnt/gentoo/
+mount -t proc none /mnt/gentoo/proc/
+mount --rbind /sys /mnt/gentoo/sys
+mount --rbind /dev /mnt/gentoo/dev
+chroot /mnt/gentoo /bin/bash
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;mental notes...&lt;/h3&gt;
+
+&lt;p&gt;With an encrypted root-fs the kernel created at last step of the installation from media &lt;em&gt;must&lt;/em&gt; contain the chosen encryption cipher and algo at kernel &lt;code&gt;.config &amp;gt; Cryptographic API&lt;/code&gt;
+ Also, make sure the kernel command line refers to the designated &lt;code&gt;crypt_root&lt;/code&gt; and &lt;code&gt;real_root&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;For getting the german keyboard on console-windows right:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;/etc/conf.d/keymaps: keymap=&amp;quot;de-latin1&amp;quot;
+/etc/conf.d/consolefont: consolefont=&amp;quot;lat9w-16&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;For getting the german keyboard with Xorg-server:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;/etc/X11/xorg.conf:
+Section &amp;quot;InputClass&amp;quot;
+    Identifier &amp;quot;evdev keyboard catchall&amp;quot;
+    MatchIsKeyboard &amp;quot;on&amp;quot;
+    MatchDevicePath &amp;quot;/dev/input/event*&amp;quot;
+    Option &amp;quot;xkb_layout&amp;quot; &amp;quot;de&amp;quot;
+    Driver &amp;quot;evdev&amp;quot;
+EndSection
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Using the Haswell integrated graphics required&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;kernel .config:
+Device Drivers &amp;gt; Grphics support &amp;gt; Intel 8xx [...]
+  Enable modesetting [...] must be enabled
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Using the integrated BlueTooth chip required ath3k&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;kernel.config:
+Networking support &amp;gt; Bluetooth subsystem support &amp;gt; Bluetooth device drivers
+(don&amp;#39;t forget to emerge linux-firmware)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+ </entry>
+ 
+ 
+</feed>

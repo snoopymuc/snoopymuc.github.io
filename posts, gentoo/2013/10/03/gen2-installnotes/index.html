@@ -1,0 +1,326 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>
+      
+        Gen2 Installnotes - 
+      
+      Snoopymuc's home
+    </title>
+    
+    <meta name="author" content="Snoopy MUC">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link href="/assets/themes/hooligan/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes/hooligan/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/assets/themes/hooligan/css-social-buttons/css/zocial.stripped.css">
+    <link href="/assets/themes/hooligan/css/pygments.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes/hooligan/css/darkstrap.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/assets/themes/hooligan/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- fav and touch icons -->
+    <!-- Update these with your own images
+      <link rel="shortcut icon" href="images/favicon.ico">
+      <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    -->
+  </head>
+
+  <body>
+    <div id="page-wrap">
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="container">
+            <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+
+            <a class="brand" href="/">Snoopymuc's home</a>
+
+            <div class="nav-collapse">
+              <ul class="nav">
+                
+                
+                
+
+
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+
+
+
+              </ul>
+              <ul class="nav pull-right social visible-desktop">
+                <li class="divider-vertical"></li>
+                
+                
+                
+                
+                
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="content">
+          
+<div class="page-header">
+  <h1>
+    Gen2 Installnotes 
+    
+      <small>Supporting tagline</small>
+    
+  </h1>
+</div>
+
+<div class="row">
+  <div class="span8">
+    <h2>Gen2 installation</h2>
+
+<p>Notes on the Gentoo-Installation I did on my Dell 3440 Netbook, based on the <a href="https://www.gentoo.org/doc/en/handbook/handbook-amd64.xml">Gentoo Installation Handbook</a></p>
+
+<p>In my humble opinion Windows applications are ubiquitous  still, so I wanted to install Gentoo additional to the pre-installed Windows flavor. For mobiles it should be a matter of course to have at least private data encrypted --- installing Gentoo on an encrypted disk is my lazy choice.</p>
+
+<p>I&#39;m not a friend of a &quot;one partition fits it all&quot; approach, <em>mount</em>-flags disallowing eg. devices on the /home-partition are a very basic means of increasing security - LVM the choice to be flexible. EXT4 allows online reduction and seems to be a path towards BTRFS --- else my experiences with JFS were very good.</p>
+
+<p>With the chosen crypt-parameters here&#39;s a brief summary of the initial steps:</p>
+
+<h3>setting up the encrypted physical volume</h3>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"># SHRINK Windows, using the Windows tool
+# define a physical partition, later for /boot --- sda2
+# define one partition covering &quot;the rest&quot; --- sda6
+fdisk /dev/sda
+# luksFormat partition
+cryptsetup -y --cipher twofish-cbc-essiv:sha256 --key-size 256 luksFormat /dev/sda6
+# make partition available
+cryptsetup luksOpen /dev/sda6 root
+# 
+</code></pre></div>
+<h3>prepare logical volumes</h3>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"># defining the physical volume on luks container
+pvcreate /dev/mapper/root
+# define the volume group and the logical volumes
+lvcreate -L8GB -n swap vg
+lvcreate -L5GB -n root vg
+lvcreate -L15GB -n usr vg
+lvcreate -L5GB -n var vg
+lvcreate -L10GB -n home vg
+lvcreate -L1.5GB -n opt vg
+# ensure boot-manager will find the kernel+initrd
+# set aside a physical partition containing the /boot-data
+mkfs.ext2 /dev/sda5
+</code></pre></div>
+<h3>assemble prepared partitions into the /mnt/gentoo - mountpoint used for installation</h3>
+<div class="highlight"><pre><code class="text language-text" data-lang="text"># create &amp; use swap
+mkswap /dev/vg/swap
+swapon /dev/vg/swap
+for i in root usr var home opt; do mkfs.ext4 /dev/vg/$i; done
+mount /dev/vg/root /mnt/gentoo/
+mkdir /mnt/gentoo/boot
+mount /dev/sda5 /mnt/gentoo/boot
+# spot the udev&#39;ified name of the network-interface and bring it to life
+net-setup enp7s0
+mkdir /mnt/gentoo/{home,opt,var,usr}
+for i in home opt usr var; do mount /dev/vg/$i /mnt/gentoo/$i; done
+cd /mnt/gentoo/
+# continue with (https://www.gentoo.org/doc/en/handbook/handbook-amd64.xml)
+links http://www.gentoo.org/main/en/mirrors.xml
+tar xvjpf stage3-amd64-20130822.tar.bz2
+vi /mnt/gentoo/etc/portage/make.conf
+mirrorselect -i -r -o &gt;&gt; /mnt/gentoo/etc/portage/make.conf
+cp -L /etc/resolv.conf /mnt/gentoo/etc/
+vi /mnt/gentoo/etc/resolv.conf 
+mount -t proc non /mnt/gentoo/
+mount -t proc none /mnt/gentoo/proc/
+mount --rbind /sys /mnt/gentoo/sys
+mount --rbind /dev /mnt/gentoo/dev
+chroot /mnt/gentoo /bin/bash
+</code></pre></div>
+<h3>mental notes...</h3>
+
+<p>With an encrypted root-fs the kernel created at last step of the installation from media <em>must</em> contain the chosen encryption cipher and algo at kernel <code>.config &gt; Cryptographic API</code>
+ Also, make sure the kernel command line refers to the designated <code>crypt_root</code> and <code>real_root</code>.</p>
+
+<p>For getting the german keyboard on console-windows right:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">/etc/conf.d/keymaps: keymap=&quot;de-latin1&quot;
+/etc/conf.d/consolefont: consolefont=&quot;lat9w-16&quot;
+</code></pre></div>
+<p>For getting the german keyboard with Xorg-server:</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">/etc/X11/xorg.conf:
+Section &quot;InputClass&quot;
+    Identifier &quot;evdev keyboard catchall&quot;
+    MatchIsKeyboard &quot;on&quot;
+    MatchDevicePath &quot;/dev/input/event*&quot;
+    Option &quot;xkb_layout&quot; &quot;de&quot;
+    Driver &quot;evdev&quot;
+EndSection
+</code></pre></div>
+<p>Using the Haswell integrated graphics required</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">kernel .config:
+Device Drivers &gt; Grphics support &gt; Intel 8xx [...]
+  Enable modesetting [...] must be enabled
+</code></pre></div>
+<p>Using the integrated BlueTooth chip required ath3k</p>
+<div class="highlight"><pre><code class="text language-text" data-lang="text">kernel.config:
+Networking support &gt; Bluetooth subsystem support &gt; Bluetooth device drivers
+(don&#39;t forget to emerge linux-firmware)
+</code></pre></div>
+    <hr>
+    <div class="pagination btn-group">
+      
+        <a class="btn disabled prev">&larr; Previous</a>
+      
+        <a class="btn" href="/archive.html">Archive</a>
+      
+        <a class="btn next" href="/posts,%20postfix/2014/04/27/hotmail-postfix" title="Hotmail Postfix">Next &rarr;</a>
+      
+    </div>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'snoopymuc-git'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+  
+  <div class="span4">
+    <section>
+      <h4>Published</h4>
+      <div class="date"><span>03 October 2013</span></div>
+    </section>
+    
+      <section>
+        <h4>Category</h4>
+        <span class="category">
+          posts, gentoo
+        </span>
+      </section>
+         
+    
+      <section>
+        <h4>Tags</h4>
+        <ul class="tag_box">
+          
+          
+
+
+  
+     
+    	<li><a href="/tags.html#gentoo-ref">gentoo <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#installation-ref">installation <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#cryptsetup-ref">cryptsetup <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#lvm-ref">lvm <span>1</span></a></li>
+    
+  
+
+
+
+        </ul>
+      </section>
+             
+  </div>
+</div>
+
+
+        </div>
+      </div> <!-- /container -->
+
+      <div class="footer-push"></div>
+    </div><!--/.page-wrap -->
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2014 Snoopy MUC
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://github.com/dhulihan/hooligan" target="_blank">The Hooligan Theme</a>
+        </p>
+      </div>
+    </footer>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/assets/themes/hooligan/js/jquery.min.js"><\/script>')</script>
+    <script src="/assets/themes/hooligan/bootstrap/js/bootstrap.min.js"></script>
+
+    
+  </body>
+</html>
+
