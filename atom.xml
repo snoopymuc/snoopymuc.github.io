@@ -4,7 +4,7 @@
  <title>Snoopymuc's home</title>
  <link href="http://snoopymuc.github.io/" rel="self"/>
  <link href="http://snoopymuc.github.io"/>
- <updated>2014-04-28T17:27:43+02:00</updated>
+ <updated>2014-04-29T14:46:11+02:00</updated>
  <id>http://snoopymuc.github.io</id>
  <author>
    <name>Snoopy MUC</name>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>Hotmail Postfix</title>
-   <link href="http://snoopymuc.github.io/posts,%20postfix/2014/04/27/hotmail-postfix"/>
+   <link href="http://snoopymuc.github.io/postfix/2014/04/27/hotmail-postfix"/>
    <updated>2014-04-27T00:00:00+02:00</updated>
-   <id>http://snoopymuc.github.io/posts,%20postfix/2014/04/27/hotmail-postfix</id>
+   <id>http://snoopymuc.github.io/postfix/2014/04/27/hotmail-postfix</id>
    <content type="html">&lt;h2&gt;TLSv1 issue with hotmail, smtp-mail.outlook.com&lt;/h2&gt;
 
 &lt;p&gt;When using the hotmail-server to deliver eMails, authenticating at that server with postfix/SASL results in the error logged in the mail syslogfile:&lt;/p&gt;
@@ -62,9 +62,9 @@ sender_dependent_default_transport_maps = hash:/etc/postfix/sender_dependent_tra
  
  <entry>
    <title>Gen2 Installnotes</title>
-   <link href="http://snoopymuc.github.io/posts,%20gentoo/2013/10/03/gen2-installnotes"/>
+   <link href="http://snoopymuc.github.io/gentoo/2013/10/03/gen2-installnotes"/>
    <updated>2013-10-03T00:00:00+02:00</updated>
-   <id>http://snoopymuc.github.io/posts,%20gentoo/2013/10/03/gen2-installnotes</id>
+   <id>http://snoopymuc.github.io/gentoo/2013/10/03/gen2-installnotes</id>
    <content type="html">&lt;h2&gt;Gen2 installation&lt;/h2&gt;
 
 &lt;p&gt;Notes on the Gentoo-Installation I did on my Dell 3440 Netbook, based on the &lt;a href=&quot;https://www.gentoo.org/doc/en/handbook/handbook-amd64.xml&quot;&gt;Gentoo Installation Handbook&lt;/a&gt;&lt;/p&gt;
@@ -113,7 +113,7 @@ net-setup enp7s0
 mkdir /mnt/gentoo/{home,opt,var,usr}
 for i in home opt usr var; do mount /dev/vg/$i /mnt/gentoo/$i; done
 cd /mnt/gentoo/
-# continue with (https://www.gentoo.org/doc/en/handbook/handbook-amd64.xml)
+# continue with https://www.gentoo.org/doc/en/handbook/handbook-amd64.xml
 links http://www.gentoo.org/main/en/mirrors.xml
 tar xvjpf stage3-amd64-20130822.tar.bz2
 vi /mnt/gentoo/etc/portage/make.conf

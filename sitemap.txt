@@ -8,5 +8,5 @@ http://snoopymuc.github.io/archive.html
 http://snoopymuc.github.io/categories.html
 http://snoopymuc.github.io/pages.html
 
-http://snoopymuc.github.io/posts,%20postfix/2014/04/27/hotmail-postfix
-http://snoopymuc.github.io/posts,%20gentoo/2013/10/03/gen2-installnotes
+http://snoopymuc.github.io/postfix/2014/04/27/hotmail-postfix
+http://snoopymuc.github.io/gentoo/2013/10/03/gen2-installnotes

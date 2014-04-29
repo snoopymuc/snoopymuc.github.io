@@ -5,8 +5,8 @@
         <description>Snoopymuc's home - Snoopy MUC</description>
         <link>http://snoopymuc.github.io</link>
         <link>http://snoopymuc.github.io</link>
-        <lastBuildDate>2014-04-28T17:27:43+02:00</lastBuildDate>
-        <pubDate>2014-04-28T17:27:43+02:00</pubDate>
+        <lastBuildDate>2014-04-29T14:46:11+02:00</lastBuildDate>
+        <pubDate>2014-04-29T14:46:11+02:00</pubDate>
         <ttl>1800</ttl>
 
 
@@ -53,8 +53,8 @@ sender_dependent_default_transport_maps = hash:/etc/postfix/sender_dependent_tra
 &lt;p&gt;... &lt;strong&gt;&lt;em&gt;works for me&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;... postfix/smtp[3325]: Untrusted TLS connection established to smtp-mail.outlook.com[65.55.96.11]:25: SSLv3 with cipher RC4-MD5 (128/128 bits)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
-                <link>http://snoopymuc.github.io/posts,%20postfix/2014/04/27/hotmail-postfix</link>
-                <guid>http://snoopymuc.github.io/posts,%20postfix/2014/04/27/hotmail-postfix</guid>
+                <link>http://snoopymuc.github.io/postfix/2014/04/27/hotmail-postfix</link>
+                <guid>http://snoopymuc.github.io/postfix/2014/04/27/hotmail-postfix</guid>
                 <pubDate>2014-04-27T00:00:00+02:00</pubDate>
         </item>
 
@@ -108,7 +108,7 @@ net-setup enp7s0
 mkdir /mnt/gentoo/{home,opt,var,usr}
 for i in home opt usr var; do mount /dev/vg/$i /mnt/gentoo/$i; done
 cd /mnt/gentoo/
-# continue with (https://www.gentoo.org/doc/en/handbook/handbook-amd64.xml)
+# continue with https://www.gentoo.org/doc/en/handbook/handbook-amd64.xml
 links http://www.gentoo.org/main/en/mirrors.xml
 tar xvjpf stage3-amd64-20130822.tar.bz2
 vi /mnt/gentoo/etc/portage/make.conf
@@ -150,8 +150,8 @@ Device Drivers &amp;gt; Grphics support &amp;gt; Intel 8xx [...]
 Networking support &amp;gt; Bluetooth subsystem support &amp;gt; Bluetooth device drivers
 (don&amp;#39;t forget to emerge linux-firmware)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
-                <link>http://snoopymuc.github.io/posts,%20gentoo/2013/10/03/gen2-installnotes</link>
-                <guid>http://snoopymuc.github.io/posts,%20gentoo/2013/10/03/gen2-installnotes</guid>
+                <link>http://snoopymuc.github.io/gentoo/2013/10/03/gen2-installnotes</link>
+                <guid>http://snoopymuc.github.io/gentoo/2013/10/03/gen2-installnotes</guid>
                 <pubDate>2013-10-03T00:00:00+02:00</pubDate>
         </item>
 
