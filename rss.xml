@@ -5,8 +5,8 @@
         <description>Snoopymuc's home - Snoopy MUC</description>
         <link>http://snoopymuc.github.io</link>
         <link>http://snoopymuc.github.io</link>
-        <lastBuildDate>2014-04-29T14:46:11+02:00</lastBuildDate>
-        <pubDate>2014-04-29T14:46:11+02:00</pubDate>
+        <lastBuildDate>2014-04-29T18:04:54+02:00</lastBuildDate>
+        <pubDate>2014-04-29T18:04:54+02:00</pubDate>
         <ttl>1800</ttl>
 
 
@@ -96,6 +96,7 @@ lvcreate -L1.5GB -n opt vg
 mkfs.ext2 /dev/sda5
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h3&gt;assemble prepared partitions into the /mnt/gentoo - mountpoint used for installation&lt;/h3&gt;
+
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;text language-text&quot; data-lang=&quot;text&quot;&gt;# create &amp;amp; use swap
 mkswap /dev/vg/swap
 swapon /dev/vg/swap
@@ -108,19 +109,20 @@ net-setup enp7s0
 mkdir /mnt/gentoo/{home,opt,var,usr}
 for i in home opt usr var; do mount /dev/vg/$i /mnt/gentoo/$i; done
 cd /mnt/gentoo/
-# continue with https://www.gentoo.org/doc/en/handbook/handbook-amd64.xml
+# continue with &lt;a href=&quot;https://www.gentoo.org/doc/en/handbook/handbook-amd64.xml&quot;&gt;https://www.gentoo.org/doc/en/handbook/handbook-amd64.xml&lt;/a&gt;
 links http://www.gentoo.org/main/en/mirrors.xml
 tar xvjpf stage3-amd64-20130822.tar.bz2
 vi /mnt/gentoo/etc/portage/make.conf
 mirrorselect -i -r -o &amp;gt;&amp;gt; /mnt/gentoo/etc/portage/make.conf
 cp -L /etc/resolv.conf /mnt/gentoo/etc/
-vi /mnt/gentoo/etc/resolv.conf 
+vi /mnt/gentoo/etc/resolv.conf
 mount -t proc non /mnt/gentoo/
 mount -t proc none /mnt/gentoo/proc/
 mount --rbind /sys /mnt/gentoo/sys
 mount --rbind /dev /mnt/gentoo/dev
 chroot /mnt/gentoo /bin/bash
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
 &lt;h3&gt;mental notes...&lt;/h3&gt;
 
 &lt;p&gt;With an encrypted root-fs the kernel created at last step of the installation from media &lt;em&gt;must&lt;/em&gt; contain the chosen encryption cipher and algo at kernel &lt;code&gt;.config &amp;gt; Cryptographic API&lt;/code&gt;
