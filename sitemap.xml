@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  
+  <url>
+    <loc>/postfix/2014/04/27/hotmail-postfix</loc>
+    <lastmod>2014-04-27T00:00:00+02:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>/gentoo/2013/10/03/gen2-installnotes</loc>
+    <lastmod>2013-10-03T00:00:00+02:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  
+  <url>
+    <loc>/tags.html</loc>
+    <lastmod>2014-04-29T21:42:22+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>/sitemap.txt</loc>
+    <lastmod>2014-04-29T21:42:22+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>/rss.xml</loc>
+    <lastmod>2014-04-29T21:42:22+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>/atom.xml</loc>
+    <lastmod>2014-04-29T21:42:22+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2014-04-29T21:42:22+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
+    <loc>/archive.html</loc>
+    <lastmod>2014-04-29T21:42:22+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>/categories.html</loc>
+    <lastmod>2014-04-29T21:42:22+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>/pages.html</loc>
+    <lastmod>2014-04-29T21:42:22+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  
+  <url>
+    <loc>/assets/themes/hooligan/css-social-buttons/sample.html</loc>
+    <lastmod>2014-04-25T20:44:42+02:00</lastmod>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>/404.html</loc>
+    <lastmod>2014-04-25T20:44:21+02:00</lastmod>
+    <priority>0.6</priority>
+  </url>
+  
+</urlset>
