@@ -18,56 +18,56 @@
   
   <url>
     <loc>/tags.html</loc>
-    <lastmod>2014-04-29T21:48:08+02:00</lastmod>
+    <lastmod>2014-04-30T07:19:54+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>/sitemap.txt</loc>
-    <lastmod>2014-04-29T21:48:08+02:00</lastmod>
+    <lastmod>2014-04-30T07:19:54+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>/rss.xml</loc>
-    <lastmod>2014-04-29T21:48:08+02:00</lastmod>
+    <lastmod>2014-04-30T07:19:54+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>/atom.xml</loc>
-    <lastmod>2014-04-29T21:48:08+02:00</lastmod>
+    <lastmod>2014-04-30T07:19:54+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>/</loc>
-    <lastmod>2014-04-29T21:48:08+02:00</lastmod>
+    <lastmod>2014-04-30T07:19:54+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>/archive.html</loc>
-    <lastmod>2014-04-29T21:48:08+02:00</lastmod>
+    <lastmod>2014-04-30T07:19:54+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>/categories.html</loc>
-    <lastmod>2014-04-29T21:48:08+02:00</lastmod>
+    <lastmod>2014-04-30T07:19:54+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>/pages.html</loc>
-    <lastmod>2014-04-29T21:48:08+02:00</lastmod>
+    <lastmod>2014-04-30T07:19:54+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -82,6 +82,12 @@
   <url>
     <loc>/404.html</loc>
     <lastmod>2014-04-25T20:44:21+02:00</lastmod>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>/googleb8b28914dce75c61.html</loc>
+    <lastmod>2014-04-29T21:52:26+02:00</lastmod>
     <priority>0.6</priority>
   </url>
   
