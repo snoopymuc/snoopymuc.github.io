@@ -58,32 +58,12 @@
     
       
       	
-      	<li><a href="/tags.html">Tags</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-    
-  
-    
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
       	<li><a href="/archive.html">Archive</a></li>
       	
+      
+    
+  
+    
       
     
   
@@ -97,8 +77,28 @@
   
     
       
+    
+  
+    
+      
       	
       	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
       	
       
     
@@ -144,7 +144,7 @@
 <p>With the chosen crypt-parameters here&#39;s a brief summary of the initial steps:</p>
 
 <h3>setting up the encrypted physical volume</h3>
-<div class="highlight"><pre><code class="text language-text" data-lang="text"># SHRINK Windows, using the Windows tool
+<div class="highlight"><pre><code class="language-text" data-lang="text"># SHRINK Windows, using the Windows tool
 # define a physical partition, later for /boot --- sda2
 # define one partition covering &quot;the rest&quot; --- sda6
 fdisk /dev/sda
@@ -155,7 +155,7 @@ cryptsetup luksOpen /dev/sda6 root
 # 
 </code></pre></div>
 <h3>prepare logical volumes</h3>
-<div class="highlight"><pre><code class="text language-text" data-lang="text"># defining the physical volume on luks container
+<div class="highlight"><pre><code class="language-text" data-lang="text"># defining the physical volume on luks container
 pvcreate /dev/mapper/root
 # define the volume group and the logical volumes
 lvcreate -L8GB -n swap vg
@@ -202,11 +202,11 @@ chroot /mnt/gentoo /bin/bash
  Also, make sure the kernel command line refers to the designated <code>crypt_root</code> and <code>real_root</code>.</p>
 
 <p>For getting the german keyboard on console-windows right:</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">/etc/conf.d/keymaps: keymap=&quot;de-latin1&quot;
+<div class="highlight"><pre><code class="language-text" data-lang="text">/etc/conf.d/keymaps: keymap=&quot;de-latin1&quot;
 /etc/conf.d/consolefont: consolefont=&quot;lat9w-16&quot;
 </code></pre></div>
 <p>For getting the german keyboard with Xorg-server:</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">/etc/X11/xorg.conf:
+<div class="highlight"><pre><code class="language-text" data-lang="text">/etc/X11/xorg.conf:
 Section &quot;InputClass&quot;
     Identifier &quot;evdev keyboard catchall&quot;
     MatchIsKeyboard &quot;on&quot;
@@ -216,12 +216,12 @@ Section &quot;InputClass&quot;
 EndSection
 </code></pre></div>
 <p>Using the Haswell integrated graphics required</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">kernel .config:
+<div class="highlight"><pre><code class="language-text" data-lang="text">kernel .config:
 Device Drivers &gt; Grphics support &gt; Intel 8xx [...]
   Enable modesetting [...] must be enabled
 </code></pre></div>
 <p>Using the integrated BlueTooth chip required ath3k</p>
-<div class="highlight"><pre><code class="text language-text" data-lang="text">kernel.config:
+<div class="highlight"><pre><code class="language-text" data-lang="text">kernel.config:
 Networking support &gt; Bluetooth subsystem support &gt; Bluetooth device drivers
 (don&#39;t forget to emerge linux-firmware)
 </code></pre></div>
