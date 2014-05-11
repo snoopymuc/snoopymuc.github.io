@@ -3,6 +3,12 @@
   
   
   <url>
+    <loc>http://snoopymuc.github.io/fail2ban/2014/05/11/fail2ban-asterisk</loc>
+    <lastmod>2014-05-11T00:00:00+02:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://snoopymuc.github.io/postfix/2014/04/27/hotmail-postfix</loc>
     <lastmod>2014-04-27T00:00:00+02:00</lastmod>
     <priority>0.8</priority>
@@ -17,35 +23,35 @@
   
   <url>
     <loc>http://snoopymuc.github.io/archive.html</loc>
-    <lastmod>2014-05-08T00:58:00+02:00</lastmod>
+    <lastmod>2014-05-11T17:11:34+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://snoopymuc.github.io/categories.html</loc>
-    <lastmod>2014-05-08T00:58:00+02:00</lastmod>
+    <lastmod>2014-05-11T17:11:34+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://snoopymuc.github.io/</loc>
-    <lastmod>2014-05-08T00:58:00+02:00</lastmod>
+    <lastmod>2014-05-11T17:11:34+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <url>
     <loc>http://snoopymuc.github.io/pages.html</loc>
-    <lastmod>2014-05-08T00:58:00+02:00</lastmod>
+    <lastmod>2014-05-11T17:11:34+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://snoopymuc.github.io/tags.html</loc>
-    <lastmod>2014-05-08T00:58:00+02:00</lastmod>
+    <lastmod>2014-05-11T17:11:34+02:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

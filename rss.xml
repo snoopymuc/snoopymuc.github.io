@@ -5,10 +5,37 @@
         <description>Snoopymuc's home - Snoopy MUC</description>
         <link>http://snoopymuc.github.io</link>
         <link>http://snoopymuc.github.io</link>
-        <lastBuildDate>2014-05-08T00:58:00+02:00</lastBuildDate>
-        <pubDate>2014-05-08T00:58:00+02:00</pubDate>
+        <lastBuildDate>2014-05-11T17:11:34+02:00</lastBuildDate>
+        <pubDate>2014-05-11T17:11:34+02:00</pubDate>
         <ttl>1800</ttl>
 
+
+        <item>
+                <title>Fail2ban Asterisk</title>
+                <description>&lt;h2&gt;Attempts to abuse asterisk&lt;/h2&gt;
+
+&lt;p&gt;Recently asterisks messages started to fill at my private installation with (denied) attempts to dial-out, eg.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;[May 11 03:26:34] NOTICE[13665][C-000109c5] chan_sip.c: Call from &amp;#39;&amp;#39; (an.ip.addr.ess:port) to extension &amp;#39;00972597636927&amp;#39; rejected because extension not found in context &amp;#39;local-context&amp;#39;.
+[May 11 03:26:34] NOTICE[13665][C-000109c6] chan_sip.c: Call from &amp;#39;&amp;#39; (an.ip.addr.ess:port) to extension &amp;#39;000972597636927&amp;#39; rejected because extension not found in context &amp;#39;local-context&amp;#39;.
+[May 11 03:26:35] NOTICE[13665][C-000109c7] chan_sip.c: Call from &amp;#39;&amp;#39; (an.ip.addr.ess:port) to extension &amp;#39;900972597636927&amp;#39; rejected because extension not found in context &amp;#39;local-context&amp;#39;.
+[May 11 03:49:53] NOTICE[13665][C-000109c8] chan_sip.c: Call from &amp;#39;&amp;#39; (an.ip.addr.ess:port) to extension &amp;#39;0000972597614173&amp;#39; rejected because extension not found in context &amp;#39;local-context&amp;#39;.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Fail2ban needed an additional &lt;code&gt;failregex&lt;/code&gt; to match&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;failregex = (...)
+    ^(%(__prefix_line)s|\[\]\s*)%(log_prefix)s Call from .*?\(&amp;lt;HOST&amp;gt;(:\d+)?\) to extension \S+ rejected because extension not found in context \S+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;NB.: eMails created by fail2ban did not show up with a correct &lt;code&gt;Date:&lt;/code&gt;-header. Changing in &lt;code&gt;/etc/fail2ban/action.d/*&lt;/code&gt;:  &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Date: `LC_TIME=C date -u +&amp;quot;%%a, %%d %%h %%Y %%T +0000&amp;quot;`
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;to  &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Date: `LC_TIME=C date -R`
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;solved that.&lt;/p&gt;
+</description>
+                <link>http://snoopymuc.github.io/fail2ban/2014/05/11/fail2ban-asterisk</link>
+                <guid>http://snoopymuc.github.io/fail2ban/2014/05/11/fail2ban-asterisk</guid>
+                <pubDate>2014-05-11T00:00:00+02:00</pubDate>
+        </item>
 
         <item>
                 <title>Hotmail Postfix</title>

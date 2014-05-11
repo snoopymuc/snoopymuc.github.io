@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>
       
-        Archive - 
+        Fail2ban Asterisk - 
       
       Snoopymuc's home
     </title>
@@ -58,7 +58,7 @@
     
       
       	
-      	<li class="active"><a href="/archive.html" class="active">Archive</a></li>
+      	<li><a href="/archive.html">Archive</a></li>
       	
       
     
@@ -124,77 +124,101 @@
       <div class="container">
         <div class="content">
           
-<div class="page-header-wrapper">
-	<div class="page-header">
-  		<h1>Archive </h1>
-  	</div>
+<div class="page-header">
+  <h1>
+    Fail2ban Asterisk 
+    
+  </h1>
 </div>
 
 <div class="row">
-  <div class="span12">
+  <div class="span8">
+    <h2>Attempts to abuse asterisk</h2>
+
+<p>Recently asterisks messages started to fill at my private installation with (denied) attempts to dial-out, eg.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">[May 11 03:26:34] NOTICE[13665][C-000109c5] chan_sip.c: Call from &#39;&#39; (an.ip.addr.ess:port) to extension &#39;00972597636927&#39; rejected because extension not found in context &#39;local-context&#39;.
+[May 11 03:26:34] NOTICE[13665][C-000109c6] chan_sip.c: Call from &#39;&#39; (an.ip.addr.ess:port) to extension &#39;000972597636927&#39; rejected because extension not found in context &#39;local-context&#39;.
+[May 11 03:26:35] NOTICE[13665][C-000109c7] chan_sip.c: Call from &#39;&#39; (an.ip.addr.ess:port) to extension &#39;900972597636927&#39; rejected because extension not found in context &#39;local-context&#39;.
+[May 11 03:49:53] NOTICE[13665][C-000109c8] chan_sip.c: Call from &#39;&#39; (an.ip.addr.ess:port) to extension &#39;0000972597614173&#39; rejected because extension not found in context &#39;local-context&#39;.
+</code></pre></div>
+<p>Fail2ban needed an additional <code>failregex</code> to match</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">failregex = (...)
+    ^(%(__prefix_line)s|\[\]\s*)%(log_prefix)s Call from .*?\(&lt;HOST&gt;(:\d+)?\) to extension \S+ rejected because extension not found in context \S+
+</code></pre></div>
+<p>NB.: eMails created by fail2ban did not show up with a correct <code>Date:</code>-header. Changing in <code>/etc/fail2ban/action.d/*</code>:  </p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">Date: `LC_TIME=C date -u +&quot;%%a, %%d %%h %%Y %%T +0000&quot;`
+</code></pre></div>
+<p>to  </p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">Date: `LC_TIME=C date -R`
+</code></pre></div>
+<p>solved that.</p>
+
+    <hr>
+    <div class="pagination btn-group">
+      
+        <a class="btn prev" href="/postfix/2014/04/27/hotmail-postfix" title="Hotmail Postfix">&larr; Previous</a>
+      
+        <a class="btn" href="/archive.html">Archive</a>
+      
+        <a class="btn next disabled">Next &rarr;</a>
+      
+    </div>
+    <hr>
     
 
 
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'snoopymuc-git'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
 
+
+  </div>
   
+  <div class="span4">
+    <section>
+      <h4>Published</h4>
+      <div class="date"><span>11 May 2014</span></div>
+    </section>
     
+      <section>
+        <h4>Category</h4>
+        <span class="category">
+          fail2ban
+        </span>
+      </section>
+         
     
-    
-    
-  
-    
-      <h2>2014</h2>
-      <h3>May</h3>
-      <ul>
-    
-  
-    <li><span>May 11, 2014</span> &raquo; <a href="/fail2ban/2014/05/11/fail2ban-asterisk">Fail2ban Asterisk</a></li>
-  
-    
+      <section>
+        <h4>Tags</h4>
+        <ul class="tag_box">
           
-        
-          </ul>
-          <h3>April</h3>
-          <ul>
-        
-      
+          
+
+
+  
+     
+    	<li><a href="/tags.html#fail2ban asterisk-ref">fail2ban asterisk <span>1</span></a></li>
     
   
-    
-    
-    
-    
-  
-    
-  
-    <li><span>April 27, 2014</span> &raquo; <a href="/postfix/2014/04/27/hotmail-postfix">Hotmail Postfix</a></li>
-  
-    
-      
+
+
+
         </ul>
-        <h2>2013</h2>
-        <h3>October</h3>
-        <ul>
-      
-    
-  
-    
-    
-    
-    
-  
-    
-  
-    <li><span>October  3, 2013</span> &raquo; <a href="/gentoo/2013/10/03/gen2-installnotes">Gen2 Installnotes</a></li>
-  
-    
-      </ul>
-    
-  
-
-
+      </section>
+             
   </div>
 </div>
 
