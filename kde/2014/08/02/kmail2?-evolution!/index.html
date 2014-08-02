@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>
       
-        Fail2ban Asterisk - 
+        Kmail2? Evolution! - 
       
       Snoopymuc's home
     </title>
@@ -126,41 +126,57 @@
           
 <div class="page-header">
   <h1>
-    Fail2ban Asterisk 
+    Kmail2? Evolution! 
     
   </h1>
 </div>
 
 <div class="row">
   <div class="span8">
-    <h2>Attempts to abuse asterisk</h2>
+    <h3>Semantic desktop and KMail2 - why, oh why?</h3>
 
-<p>Recently asterisks messages started to fill at my private installation with (denied) attempts to dial-out, eg.</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">[May 11 03:26:34] NOTICE[13665][C-000109c5] chan_sip.c: Call from &#39;&#39; (an.ip.addr.ess:port) to extension &#39;00972597636927&#39; rejected because extension not found in context &#39;local-context&#39;.
-[May 11 03:26:34] NOTICE[13665][C-000109c6] chan_sip.c: Call from &#39;&#39; (an.ip.addr.ess:port) to extension &#39;000972597636927&#39; rejected because extension not found in context &#39;local-context&#39;.
-[May 11 03:26:35] NOTICE[13665][C-000109c7] chan_sip.c: Call from &#39;&#39; (an.ip.addr.ess:port) to extension &#39;900972597636927&#39; rejected because extension not found in context &#39;local-context&#39;.
-[May 11 03:49:53] NOTICE[13665][C-000109c8] chan_sip.c: Call from &#39;&#39; (an.ip.addr.ess:port) to extension &#39;0000972597614173&#39; rejected because extension not found in context &#39;local-context&#39;.
-</code></pre></div>
-<p>Fail2ban needed an additional <code>failregex</code> to match</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">failregex = (...)
-    ^(%(__prefix_line)s|\[\]\s*)%(log_prefix)s Call from .*?\(&lt;HOST&gt;(:\d+)?\) to extension \S+ rejected because extension not found in context \S+
-</code></pre></div>
-<p>NB.: eMails created by fail2ban did not show up with a correct <code>Date:</code>-header. Changing in <code>/etc/fail2ban/action.d/*</code>:  </p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">Date: `LC_TIME=C date -u +&quot;%%a, %%d %%h %%Y %%T +0000&quot;`
-</code></pre></div>
-<p>to  </p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">Date: `LC_TIME=C date -R`
-</code></pre></div>
-<p>solved that.</p>
+<p>I liked the kdepim/korganizer approach for its integration in the KDE Desktop, it&#39;s feature rich, configurable, integrated with all the KDE eye-candy. In my opinion: if Linux ever goes Desktop, then KDE would be my bet.</p>
+
+<p>I enjoyed then in particular the features available with KMail2, be it the support for the ubiquitous use of HTML-eMails (creating eMails in claws-mail being the feature I really missed there), easily managing different identities, KDE-integrated support of PGP and S/MIME, and the really great eye-candy, up to support of &quot;X-Faces&quot;.</p>
+
+<p><em>So far, so good.</em></p>
+
+<p>There&#39;s a feature coming with the PIM tools: the infamous semantic desktop nepomuk using the virtuoso backend, the dependency on either mysql or sqlite.
+First concerns have been about its performance - well, &quot;640 kB ought to be enough for anybody.&quot; is past, my current PC copes well with KDE requirements.<br \>
+Performancewise.<br \>
+Maybe the preference of sqlite over mysql did good.</p>
+
+<p>Accidentally, incidentally KMail2 - with kdm sessions staying open until kernel or KDE-upgrade - freezed from time to time: new eMails were available for getting read but not for getting deleted. Imap server is accessed in parallel by other MUA&#39;s, but this can not really be the cause.<br \>
+Recipe for rectification: re-create the imap account. A nice occasion to consider if folders should be treated locally or server-side --- and that&#39;s the point where I made the worse experience of getting my home 100% filled by the nepomuk data at <code>$HOME/.kde4/share/apps/nepomuk/repository/main/data/virtuosobackend</code> and <code>$HOME/.local/share/akonadi</code>. </p>
+
+<p>Okay, disk layout is flexible with <code>lvextend</code> and <code>resize2fs</code>, but then I was really baffled by the sizes. <br \>
+Retrospecting the backups for the &quot;normal&quot; condition which I did not pay attention before:</p>
+
+<ul>
+<li>IMAP storage: 1.4 G</li>
+<li>$HOME/.kde4/share/apps/nepomuk/repository/main/data/virtuosobackend: 850 M</li>
+<li>$HOME/.local/share/akonadi: 694 M</li>
+</ul>
+
+<p><em>I&#39;m kind of wondering why (, oh why?) it is &quot;normal&quot; to have the amount of meta-data necessary for the semantic backend surpass the amount of original data.</em> </p>
+
+<p>So, to bring that to an end I switched to Evolution (well, at least it does what I need), and after having removed the imap account in akonadi and having cleaned the backends the partition regained some room for further KDE &quot;improvements&quot;:</p>
+
+<ul>
+<li>$HOME/.kde4/share/apps/nepomuk/repository/main/data/virtuosobackend: 13 M</li>
+<li>$HOME/.local/share/akonadi: 1.4 M</li>
+</ul>
+
+<p>For indexing files, nepomuk allows to include/exclude directories. It might help to see a selective approach for mail storage as well?</p>
 
     <hr>
     <div class="pagination btn-group">
       
-        <a class="btn prev" href="/postfix/2014/04/27/hotmail-postfix" title="Hotmail Postfix">&larr; Previous</a>
+        <a class="btn prev" href="/fail2ban/2014/05/11/fail2ban-asterisk" title="Fail2ban Asterisk">&larr; Previous</a>
       
         <a class="btn" href="/archive.html">Archive</a>
       
-        <a class="btn next" href="/kde/2014/08/02/kmail2%3F-evolution!" title="Kmail2? Evolution!">Next &rarr;</a>
+        <a class="btn next disabled">Next &rarr;</a>
       
     </div>
     <hr>
@@ -190,13 +206,13 @@
   <div class="span4">
     <section>
       <h4>Published</h4>
-      <div class="date"><span>11 May 2014</span></div>
+      <div class="date"><span>02 August 2014</span></div>
     </section>
     
       <section>
         <h4>Category</h4>
         <span class="category">
-          fail2ban
+          kde
         </span>
       </section>
          
@@ -210,7 +226,13 @@
 
   
      
-    	<li><a href="/tags.html#fail2ban asterisk-ref">fail2ban asterisk <span>1</span></a></li>
+    	<li><a href="/tags.html#kde-ref">kde <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#kmail2-ref">kmail2 <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#virtuoso-ref">virtuoso <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#nepomuk-ref">nepomuk <span>1</span></a></li>
     
   
 

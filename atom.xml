@@ -4,13 +4,56 @@
  <title>Snoopymuc's home</title>
  <link href="http://snoopymuc.github.io/" rel="self"/>
  <link href="http://snoopymuc.github.io"/>
- <updated>2014-05-11T17:11:34+02:00</updated>
+ <updated>2014-08-02T19:18:32+02:00</updated>
  <id>http://snoopymuc.github.io</id>
  <author>
    <name>Snoopy MUC</name>
    <email>snoopymuc@googlemail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Kmail2? Evolution!</title>
+   <link href="http://snoopymuc.github.io/kde/2014/08/02/kmail2%3F-evolution!"/>
+   <updated>2014-08-02T00:00:00+02:00</updated>
+   <id>http://snoopymuc.github.io/kde/2014/08/02/kmail2?-evolution!</id>
+   <content type="html">&lt;h3&gt;Semantic desktop and KMail2 - why, oh why?&lt;/h3&gt;
+
+&lt;p&gt;I liked the kdepim/korganizer approach for its integration in the KDE Desktop, it&amp;#39;s feature rich, configurable, integrated with all the KDE eye-candy. In my opinion: if Linux ever goes Desktop, then KDE would be my bet.&lt;/p&gt;
+
+&lt;p&gt;I enjoyed then in particular the features available with KMail2, be it the support for the ubiquitous use of HTML-eMails (creating eMails in claws-mail being the feature I really missed there), easily managing different identities, KDE-integrated support of PGP and S/MIME, and the really great eye-candy, up to support of &amp;quot;X-Faces&amp;quot;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;So far, so good.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;There&amp;#39;s a feature coming with the PIM tools: the infamous semantic desktop nepomuk using the virtuoso backend, the dependency on either mysql or sqlite.
+First concerns have been about its performance - well, &amp;quot;640 kB ought to be enough for anybody.&amp;quot; is past, my current PC copes well with KDE requirements.&lt;br \&gt;
+Performancewise.&lt;br \&gt;
+Maybe the preference of sqlite over mysql did good.&lt;/p&gt;
+
+&lt;p&gt;Accidentally, incidentally KMail2 - with kdm sessions staying open until kernel or KDE-upgrade - freezed from time to time: new eMails were available for getting read but not for getting deleted. Imap server is accessed in parallel by other MUA&amp;#39;s, but this can not really be the cause.&lt;br \&gt;
+Recipe for rectification: re-create the imap account. A nice occasion to consider if folders should be treated locally or server-side --- and that&amp;#39;s the point where I made the worse experience of getting my home 100% filled by the nepomuk data at &lt;code&gt;$HOME/.kde4/share/apps/nepomuk/repository/main/data/virtuosobackend&lt;/code&gt; and &lt;code&gt;$HOME/.local/share/akonadi&lt;/code&gt;. &lt;/p&gt;
+
+&lt;p&gt;Okay, disk layout is flexible with &lt;code&gt;lvextend&lt;/code&gt; and &lt;code&gt;resize2fs&lt;/code&gt;, but then I was really baffled by the sizes. &lt;br \&gt;
+Retrospecting the backups for the &amp;quot;normal&amp;quot; condition which I did not pay attention before:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;IMAP storage: 1.4 G&lt;/li&gt;
+&lt;li&gt;$HOME/.kde4/share/apps/nepomuk/repository/main/data/virtuosobackend: 850 M&lt;/li&gt;
+&lt;li&gt;$HOME/.local/share/akonadi: 694 M&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;I&amp;#39;m kind of wondering why (, oh why?) it is &amp;quot;normal&amp;quot; to have the amount of meta-data necessary for the semantic backend surpass the amount of original data.&lt;/em&gt; &lt;/p&gt;
+
+&lt;p&gt;So, to bring that to an end I switched to Evolution (well, at least it does what I need), and after having removed the imap account in akonadi and having cleaned the backends the partition regained some room for further KDE &amp;quot;improvements&amp;quot;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;$HOME/.kde4/share/apps/nepomuk/repository/main/data/virtuosobackend: 13 M&lt;/li&gt;
+&lt;li&gt;$HOME/.local/share/akonadi: 1.4 M&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For indexing files, nepomuk allows to include/exclude directories. It might help to see a selective approach for mail storage as well?&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Fail2ban Asterisk</title>
