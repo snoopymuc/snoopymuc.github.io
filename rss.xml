@@ -5,13 +5,13 @@
         <description>Snoopymuc's home - Snoopy MUC</description>
         <link>http://snoopymuc.github.io</link>
         <link>http://snoopymuc.github.io</link>
-        <lastBuildDate>2014-08-02T19:18:32+02:00</lastBuildDate>
-        <pubDate>2014-08-02T19:18:32+02:00</pubDate>
+        <lastBuildDate>2014-08-02T19:25:52+02:00</lastBuildDate>
+        <pubDate>2014-08-02T19:25:52+02:00</pubDate>
         <ttl>1800</ttl>
 
 
         <item>
-                <title>Kmail2? Evolution!</title>
+                <title>Kmail2 Evolution</title>
                 <description>&lt;h3&gt;Semantic desktop and KMail2 - why, oh why?&lt;/h3&gt;
 
 &lt;p&gt;I liked the kdepim/korganizer approach for its integration in the KDE Desktop, it&amp;#39;s feature rich, configurable, integrated with all the KDE eye-candy. In my opinion: if Linux ever goes Desktop, then KDE would be my bet.&lt;/p&gt;
@@ -48,8 +48,8 @@ Retrospecting the backups for the &amp;quot;normal&amp;quot; condition which I d
 
 &lt;p&gt;For indexing files, nepomuk allows to include/exclude directories. It might help to see a selective approach for mail storage as well?&lt;/p&gt;
 </description>
-                <link>http://snoopymuc.github.io/kde/2014/08/02/kmail2%3F-evolution!</link>
-                <guid>http://snoopymuc.github.io/kde/2014/08/02/kmail2?-evolution!</guid>
+                <link>http://snoopymuc.github.io/kde/2014/08/02/kmail2-evolution</link>
+                <guid>http://snoopymuc.github.io/kde/2014/08/02/kmail2-evolution</guid>
                 <pubDate>2014-08-02T00:00:00+02:00</pubDate>
         </item>
 

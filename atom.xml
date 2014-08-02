@@ -4,7 +4,7 @@
  <title>Snoopymuc's home</title>
  <link href="http://snoopymuc.github.io/" rel="self"/>
  <link href="http://snoopymuc.github.io"/>
- <updated>2014-08-02T19:18:32+02:00</updated>
+ <updated>2014-08-02T19:25:52+02:00</updated>
  <id>http://snoopymuc.github.io</id>
  <author>
    <name>Snoopy MUC</name>
@@ -13,10 +13,10 @@
 
  
  <entry>
-   <title>Kmail2? Evolution!</title>
-   <link href="http://snoopymuc.github.io/kde/2014/08/02/kmail2%3F-evolution!"/>
+   <title>Kmail2 Evolution</title>
+   <link href="http://snoopymuc.github.io/kde/2014/08/02/kmail2-evolution"/>
    <updated>2014-08-02T00:00:00+02:00</updated>
-   <id>http://snoopymuc.github.io/kde/2014/08/02/kmail2?-evolution!</id>
+   <id>http://snoopymuc.github.io/kde/2014/08/02/kmail2-evolution</id>
    <content type="html">&lt;h3&gt;Semantic desktop and KMail2 - why, oh why?&lt;/h3&gt;
 
 &lt;p&gt;I liked the kdepim/korganizer approach for its integration in the KDE Desktop, it&amp;#39;s feature rich, configurable, integrated with all the KDE eye-candy. In my opinion: if Linux ever goes Desktop, then KDE would be my bet.&lt;/p&gt;
