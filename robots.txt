@@ -1,1 +1,1 @@
-sitemap: http://snoopymuc.github.io/sitemap.xml
+Sitemap: http://snoopymuc.github.io/sitemap.xml

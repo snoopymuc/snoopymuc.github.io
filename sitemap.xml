@@ -1,84 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
-  
-  <url>
-    <loc>http://snoopymuc.github.io/kde/2014/08/02/kmail2-evolution</loc>
-    <lastmod>2014-08-02T00:00:00+02:00</lastmod>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>http://snoopymuc.github.io/fail2ban/2014/05/11/fail2ban-asterisk</loc>
-    <lastmod>2014-05-11T00:00:00+02:00</lastmod>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>http://snoopymuc.github.io/postfix/2014/04/27/hotmail-postfix</loc>
-    <lastmod>2014-04-27T00:00:00+02:00</lastmod>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>http://snoopymuc.github.io/gentoo/2013/10/03/gen2-installnotes</loc>
-    <lastmod>2013-10-03T00:00:00+02:00</lastmod>
-    <priority>0.8</priority>
-  </url>
-  
-  
-  <url>
-    <loc>http://snoopymuc.github.io/archive.html</loc>
-    <lastmod>2014-08-02T19:25:52+02:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>http://snoopymuc.github.io/categories.html</loc>
-    <lastmod>2014-08-02T19:25:52+02:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>http://snoopymuc.github.io/</loc>
-    <lastmod>2014-08-02T19:25:52+02:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  
-  <url>
-    <loc>http://snoopymuc.github.io/pages.html</loc>
-    <lastmod>2014-08-02T19:25:52+02:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>http://snoopymuc.github.io/tags.html</loc>
-    <lastmod>2014-08-02T19:25:52+02:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  
-  <url>
-    <loc>http://snoopymuc.github.io/assets/themes/hooligan/css-social-buttons/sample.html</loc>
-    <lastmod>2014-05-08T00:51:31+02:00</lastmod>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://snoopymuc.github.io/404.html</loc>
-    <lastmod>2014-04-25T20:44:21+02:00</lastmod>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://snoopymuc.github.io/googleb8b28914dce75c61.html</loc>
-    <lastmod>2014-04-29T21:52:26+02:00</lastmod>
-    <priority>0.6</priority>
-  </url>
-  
+<url>
+<loc>http://snoopymuc.github.io/gentoo/2013/10/03/gen2-installnotes</loc>
+<lastmod>2013-10-03T00:00:00+02:00</lastmod>
+</url>
+<url>
+<loc>http://snoopymuc.github.io/postfix/2014/04/27/hotmail-postfix</loc>
+<lastmod>2014-04-27T00:00:00+02:00</lastmod>
+</url>
+<url>
+<loc>http://snoopymuc.github.io/fail2ban/2014/05/11/fail2ban-asterisk</loc>
+<lastmod>2014-05-11T00:00:00+02:00</lastmod>
+</url>
+<url>
+<loc>http://snoopymuc.github.io/kde/2014/08/02/kmail2-evolution</loc>
+<lastmod>2014-08-02T00:00:00+02:00</lastmod>
+</url>
+<url>
+<loc>http://snoopymuc.github.io/2015/03/12/rspamd</loc>
+<lastmod>2015-03-12T00:00:00+01:00</lastmod>
+</url>
+<url>
+<loc>http://snoopymuc.github.io/archive</loc>
+</url>
+<url>
+<loc>http://snoopymuc.github.io/categories</loc>
+</url>
+<url>
+<loc>http://snoopymuc.github.io/</loc>
+</url>
+<url>
+<loc>http://snoopymuc.github.io/pages</loc>
+</url>
+<url>
+<loc>http://snoopymuc.github.io/tags</loc>
+</url>
+<url>
+<loc>http://snoopymuc.github.io/assets/themes/hooligan/css-social-buttons/sample.html</loc>
+<lastmod>2017-05-11T17:48:25+02:00</lastmod>
+</url>
 </urlset>

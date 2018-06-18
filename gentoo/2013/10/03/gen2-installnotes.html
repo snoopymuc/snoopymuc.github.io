@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -58,7 +59,7 @@
     
       
       	
-      	<li><a href="/archive.html">Archive</a></li>
+      	<li><a href="/archive">Archive</a></li>
       	
       
     
@@ -70,7 +71,7 @@
     
       
       	
-      	<li><a href="/categories.html">Categories</a></li>
+      	<li><a href="/categories">Categories</a></li>
       	
       
     
@@ -82,7 +83,7 @@
     
       
       	
-      	<li><a href="/pages.html">Pages</a></li>
+      	<li><a href="/pages">Pages</a></li>
       	
       
     
@@ -93,14 +94,14 @@
   
     
       
+      	
+      	<li><a href="/tags">Tags</a></li>
+      	
+      
     
   
     
-      
-      	
-      	<li><a href="/tags.html">Tags</a></li>
-      	
-      
+  
     
   
 
@@ -124,6 +125,7 @@
       <div class="container">
         <div class="content">
           
+
 <div class="page-header">
   <h1>
     Gen2 Installnotes 
@@ -133,29 +135,34 @@
 
 <div class="row">
   <div class="span8">
-    <h2>Gen2 installation</h2>
+    
+<h2 id="gen2-installation">Gen2 installation</h2>
 
 <p>Notes on the Gentoo-Installation I did on my Dell 3440 Netbook, based on the <a href="https://www.gentoo.org/doc/en/handbook/handbook-amd64.xml">Gentoo Installation Handbook</a></p>
 
-<p>In my humble opinion Windows applications are ubiquitous  still, so I wanted to install Gentoo additional to the pre-installed Windows flavor. For mobiles it should be a matter of course to have at least private data encrypted --- installing Gentoo on an encrypted disk is my lazy choice.</p>
+<p>In my humble opinion Windows applications are ubiquitous  still, so I wanted to install Gentoo additional to the pre-installed Windows flavor. For mobiles it should be a matter of course to have at least private data encrypted — installing Gentoo on an encrypted disk is my lazy choice.</p>
 
-<p>I&#39;m not a friend of a &quot;one partition fits it all&quot; approach, <em>mount</em>-flags disallowing eg. devices on the /home-partition are a very basic means of increasing security - LVM the choice to be flexible. EXT4 allows online reduction and seems to be a path towards BTRFS --- else my experiences with JFS were very good.</p>
+<p>I’m not a friend of a “one partition fits it all” approach, <em>mount</em>-flags disallowing eg. devices on the /home-partition are a very basic means of increasing security - LVM the choice to be flexible. EXT4 allows online reduction and seems to be a path towards BTRFS — else my experiences with JFS were very good.</p>
 
-<p>With the chosen crypt-parameters here&#39;s a brief summary of the initial steps:</p>
+<p>With the chosen crypt-parameters here’s a brief summary of the initial steps:</p>
 
-<h3>setting up the encrypted physical volume</h3>
-<div class="highlight"><pre><code class="language-text" data-lang="text"># SHRINK Windows, using the Windows tool
+<h3 id="setting-up-the-encrypted-physical-volume">setting up the encrypted physical volume</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># SHRINK Windows, using the Windows tool
 # define a physical partition, later for /boot --- sda2
-# define one partition covering &quot;the rest&quot; --- sda6
+# define one partition covering "the rest" --- sda6
 fdisk /dev/sda
 # luksFormat partition
 cryptsetup -y --cipher twofish-cbc-essiv:sha256 --key-size 256 luksFormat /dev/sda6
 # make partition available
 cryptsetup luksOpen /dev/sda6 root
 # 
-</code></pre></div>
-<h3>prepare logical volumes</h3>
-<div class="highlight"><pre><code class="language-text" data-lang="text"># defining the physical volume on luks container
+</code></pre>
+</div>
+
+<h3 id="prepare-logical-volumes">prepare logical volumes</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># defining the physical volume on luks container
 pvcreate /dev/mapper/root
 # define the volume group and the logical volumes
 lvcreate -L8GB -n swap vg
@@ -167,8 +174,10 @@ lvcreate -L1.5GB -n opt vg
 # ensure boot-manager will find the kernel+initrd
 # set aside a physical partition containing the /boot-data
 mkfs.ext2 /dev/sda5
-</code></pre></div>
-<h3>assemble prepared partitions into the /mnt/gentoo - mountpoint used for installation</h3>
+</code></pre>
+</div>
+
+<h3 id="assemble-prepared-partitions-into-the-mntgentoo---mountpoint-used-for-installation">assemble prepared partitions into the /mnt/gentoo - mountpoint used for installation</h3>
 
 <div class="highlight"><pre><code class="text language-text" data-lang="text"># create &amp; use swap
 mkswap /dev/vg/swap
@@ -196,35 +205,48 @@ mount --rbind /dev /mnt/gentoo/dev
 chroot /mnt/gentoo /bin/bash
 </code></pre></div>
 
-<h3>mental notes...</h3>
+<h3 id="mental-notes">mental notes…</h3>
 
-<p>With an encrypted root-fs the kernel created at last step of the installation from media <em>must</em> contain the chosen encryption cipher and algo at kernel <code>.config &gt; Cryptographic API</code>
- Also, make sure the kernel command line refers to the designated <code>crypt_root</code> and <code>real_root</code>.</p>
+<p>With an encrypted root-fs the kernel created at last step of the installation from media <em>must</em> contain the chosen encryption cipher and algo at kernel <code class="highlighter-rouge">.config &gt; Cryptographic API</code>
+ Also, make sure the kernel command line refers to the designated <code class="highlighter-rouge">crypt_root</code> and <code class="highlighter-rouge">real_root</code>.</p>
 
 <p>For getting the german keyboard on console-windows right:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">/etc/conf.d/keymaps: keymap=&quot;de-latin1&quot;
-/etc/conf.d/consolefont: consolefont=&quot;lat9w-16&quot;
-</code></pre></div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>/etc/conf.d/keymaps: keymap="de-latin1"
+/etc/conf.d/consolefont: consolefont="lat9w-16"
+</code></pre>
+</div>
+
 <p>For getting the german keyboard with Xorg-server:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">/etc/X11/xorg.conf:
-Section &quot;InputClass&quot;
-    Identifier &quot;evdev keyboard catchall&quot;
-    MatchIsKeyboard &quot;on&quot;
-    MatchDevicePath &quot;/dev/input/event*&quot;
-    Option &quot;xkb_layout&quot; &quot;de&quot;
-    Driver &quot;evdev&quot;
+
+<div class="highlighter-rouge"><pre class="highlight"><code>/etc/X11/xorg.conf:
+Section "InputClass"
+    Identifier "evdev keyboard catchall"
+    MatchIsKeyboard "on"
+    MatchDevicePath "/dev/input/event*"
+    Option "xkb_layout" "de"
+    Driver "evdev"
 EndSection
-</code></pre></div>
+</code></pre>
+</div>
+
 <p>Using the Haswell integrated graphics required</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">kernel .config:
+
+<div class="highlighter-rouge"><pre class="highlight"><code>kernel .config:
 Device Drivers &gt; Grphics support &gt; Intel 8xx [...]
   Enable modesetting [...] must be enabled
-</code></pre></div>
+</code></pre>
+</div>
+
 <p>Using the integrated BlueTooth chip required ath3k</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">kernel.config:
+
+<div class="highlighter-rouge"><pre class="highlight"><code>kernel.config:
 Networking support &gt; Bluetooth subsystem support &gt; Bluetooth device drivers
-(don&#39;t forget to emerge linux-firmware)
-</code></pre></div>
+(don't forget to emerge linux-firmware)
+</code></pre>
+</div>
+
+
     <hr>
     <div class="pagination btn-group">
       
@@ -237,39 +259,22 @@ Networking support &gt; Bluetooth subsystem support &gt; Bluetooth device driver
     </div>
     <hr>
     
-
-
-  <div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_developer = 1;
-    var disqus_shortname = 'snoopymuc-git'; // required: replace example with your forum shortname
-    
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-
-
   </div>
   
   <div class="span4">
     <section>
       <h4>Published</h4>
       <div class="date"><span>03 October 2013</span></div>
+           
     </section>
     
       <section>
         <h4>Category</h4>
+        
         <span class="category">
           gentoo
         </span>
+        
       </section>
          
     
@@ -309,7 +314,7 @@ Networking support &gt; Bluetooth subsystem support &gt; Bluetooth device driver
 
     <footer>
       <div class="container">
-        <p>&copy; 2014 Snoopy MUC
+        <p>&copy; 2018 Snoopy MUC
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://github.com/dhulihan/hooligan" target="_blank">The Hooligan Theme</a>
         </p>
@@ -321,6 +326,9 @@ Networking support &gt; Bluetooth subsystem support &gt; Bluetooth device driver
     <script src="/assets/themes/hooligan/bootstrap/js/bootstrap.min.js"></script>
 
     
+
+
+
   </body>
 </html>
 

@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -58,7 +59,7 @@
     
       
       	
-      	<li><a href="/archive.html">Archive</a></li>
+      	<li><a href="/archive">Archive</a></li>
       	
       
     
@@ -70,7 +71,7 @@
     
       
       	
-      	<li><a href="/categories.html">Categories</a></li>
+      	<li><a href="/categories">Categories</a></li>
       	
       
     
@@ -82,7 +83,7 @@
     
       
       	
-      	<li><a href="/pages.html">Pages</a></li>
+      	<li><a href="/pages">Pages</a></li>
       	
       
     
@@ -93,14 +94,14 @@
   
     
       
+      	
+      	<li><a href="/tags">Tags</a></li>
+      	
+      
     
   
     
-      
-      	
-      	<li><a href="/tags.html">Tags</a></li>
-      	
-      
+  
     
   
 
@@ -124,6 +125,7 @@
       <div class="container">
         <div class="content">
           
+
 <div class="page-header">
   <h1>
     Hotmail Postfix 
@@ -133,47 +135,73 @@
 
 <div class="row">
   <div class="span8">
-    <h2>TLSv1 issue with hotmail, smtp-mail.outlook.com</h2>
+    
+<h2 id="tlsv1-issue-with-hotmail-smtp-mailoutlookcom">TLSv1 issue with hotmail, smtp-mail.outlook.com</h2>
 
 <p>When using the hotmail-server to deliver eMails, authenticating at that server with postfix/SASL results in the error logged in the mail syslogfile:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">... postfix/smtp[22318]: Untrusted TLS connection established to smtp-mail.outlook.com[65.55.162.200]:587: TLSv1 with cipher DES-CBC3-SHA (168/168 bits)
+
+<div class="highlighter-rouge"><pre class="highlight"><code>... postfix/smtp[22318]: Untrusted TLS connection established to smtp-mail.outlook.com[65.55.162.200]:587: TLSv1 with cipher DES-CBC3-SHA (168/168 bits)
 ... postfix/smtp[22318]: warning: TLS library problem: 22318:error:1408F10B:SSL routines:SSL3_GET_RECORD:wrong version number:s3_pkt.c:337:
-</code></pre></div>
-<p>Debugging with <code>openssl s_client</code> confirmed, at least with some of Hotmails servers:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">openssl s_client -starttls smtp -connect smtp-mail.outlook.com:587 -crlf
+</code></pre>
+</div>
+
+<p>Debugging with <code class="highlighter-rouge">openssl s_client</code> confirmed, at least with some of Hotmails servers:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>openssl s_client -starttls smtp -connect smtp-mail.outlook.com:587 -crlf
 ...
 ehlo some.name
 ...
 250-AUTH LOGIN PLAIN XOAUTH2
 250 OK
 140393594386088:error:1408F10B:SSL routines:SSL3_GET_RECORD:wrong version number:s3_pkt.c:337:
-</code></pre></div>
-<p>All okay with SSLv3 only, <code>openssl s_client -starttls smtp -connect smtp-mail.outlook.com:587 -crlf -ssl3</code></p>
+</code></pre>
+</div>
 
-<h2>enforce SSLv3 with Hotmail</h2>
+<p>All okay with SSLv3 only, <code class="highlighter-rouge">openssl s_client -starttls smtp -connect smtp-mail.outlook.com:587 -crlf -ssl3</code></p>
 
-<p>With the framework in <code>main.cf</code></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+<h2 id="enforce-sslv3-with-hotmail">enforce SSLv3 with Hotmail</h2>
+
+<p>With the framework in <code class="highlighter-rouge">main.cf</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
 sender_dependent_relayhost_maps = hash:/etc/postfix/sender_relay
 sender_dependent_default_transport_maps = hash:/etc/postfix/sender_dependent_transport
-</code></pre></div>
-<p><code>master.cf</code> requires a specific transport defined:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">smtpsaslssl         unix    -       -       n       -       -       smtp
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">master.cf</code> requires a specific transport defined:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>smtpsaslssl         unix    -       -       n       -       -       smtp
         -o smtp_tls_mandatory_protocols=!SSLv2,!TLSv1
         -o smtp_tls_protocols=!SSLv2,!TLSv1
-</code></pre></div>
-<p>use the specific transport, <code>/etc/postfix/sender_dependent_transport</code></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;hotmail_address&gt;   smtpsaslssl:
-</code></pre></div>
-<p>together with the entry in <code>sasl_passwd</code>:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;hotmail_address&gt;   &lt;hotmail_address&gt;:&lt;hotmail_password&gt;
-</code></pre></div>
-<p>and the entry in <code>sender_relay</code>:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;hotmail_address&gt;   [smtp-mail.outlook.com]:587
-</code></pre></div>
-<p>... <strong><em>works for me</em></strong></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">... postfix/smtp[3325]: Untrusted TLS connection established to smtp-mail.outlook.com[65.55.96.11]:25: SSLv3 with cipher RC4-MD5 (128/128 bits)
-</code></pre></div>
+</code></pre>
+</div>
+
+<p>use the specific transport, <code class="highlighter-rouge">/etc/postfix/sender_dependent_transport</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;hotmail_address&gt;	smtpsaslssl:
+</code></pre>
+</div>
+
+<p>together with the entry in <code class="highlighter-rouge">sasl_passwd</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;hotmail_address&gt;	&lt;hotmail_address&gt;:&lt;hotmail_password&gt;
+</code></pre>
+</div>
+
+<p>and the entry in <code class="highlighter-rouge">sender_relay</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;hotmail_address&gt;	[smtp-mail.outlook.com]:587
+</code></pre>
+</div>
+
+<p>… <strong><em>works for me</em></strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>... postfix/smtp[3325]: Untrusted TLS connection established to smtp-mail.outlook.com[65.55.96.11]:25: SSLv3 with cipher RC4-MD5 (128/128 bits)
+</code></pre>
+</div>
+
+
     <hr>
     <div class="pagination btn-group">
       
@@ -186,39 +214,22 @@ sender_dependent_default_transport_maps = hash:/etc/postfix/sender_dependent_tra
     </div>
     <hr>
     
-
-
-  <div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_developer = 1;
-    var disqus_shortname = 'snoopymuc-git'; // required: replace example with your forum shortname
-    
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-
-
   </div>
   
   <div class="span4">
     <section>
       <h4>Published</h4>
       <div class="date"><span>27 April 2014</span></div>
+           
     </section>
     
       <section>
         <h4>Category</h4>
+        
         <span class="category">
           postfix
         </span>
+        
       </section>
          
     
@@ -256,7 +267,7 @@ sender_dependent_default_transport_maps = hash:/etc/postfix/sender_dependent_tra
 
     <footer>
       <div class="container">
-        <p>&copy; 2014 Snoopy MUC
+        <p>&copy; 2018 Snoopy MUC
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://github.com/dhulihan/hooligan" target="_blank">The Hooligan Theme</a>
         </p>
@@ -268,6 +279,9 @@ sender_dependent_default_transport_maps = hash:/etc/postfix/sender_dependent_tra
     <script src="/assets/themes/hooligan/bootstrap/js/bootstrap.min.js"></script>
 
     
+
+
+
   </body>
 </html>
 
