@@ -6,12 +6,12 @@
     <meta charset="utf-8">
     <title>
       
-        Fail2ban Asterisk - 
+        Hotmail Postfix - 
       
-      Snoopymuc's home
+      
     </title>
     
-    <meta name="author" content="Snoopy MUC">
+    <meta name="author" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
@@ -46,7 +46,7 @@
               <span class="icon-bar"></span>
             </a>
 
-            <a class="brand" href="/">Snoopymuc's home</a>
+            <a class="brand" href="/"></a>
 
             <div class="nav-collapse">
               <ul class="nav">
@@ -59,7 +59,7 @@
     
       
       	
-      	<li><a href="/archive">Archive</a></li>
+      	<li><a href="/archive.html">Archive</a></li>
       	
       
     
@@ -71,7 +71,7 @@
     
       
       	
-      	<li><a href="/categories">Categories</a></li>
+      	<li><a href="/categories.html">Categories</a></li>
       	
       
     
@@ -83,7 +83,7 @@
     
       
       	
-      	<li><a href="/pages">Pages</a></li>
+      	<li><a href="/pages.html">Pages</a></li>
       	
       
     
@@ -95,13 +95,9 @@
     
       
       	
-      	<li><a href="/tags">Tags</a></li>
+      	<li><a href="/tags.html">Tags</a></li>
       	
       
-    
-  
-    
-  
     
   
 
@@ -128,7 +124,7 @@
 
 <div class="page-header">
   <h1>
-    Fail2ban Asterisk 
+    Hotmail Postfix 
     
   </h1>
 </div>
@@ -136,46 +132,80 @@
 <div class="row">
   <div class="span8">
     
-<h2 id="attempts-to-abuse-asterisk">Attempts to abuse asterisk</h2>
+<h2 id="tlsv1-issue-with-hotmail-smtp-mailoutlookcom">TLSv1 issue with hotmail, smtp-mail.outlook.com</h2>
 
-<p>Recently asterisks messages started to fill at my private installation with (denied) attempts to dial-out, eg.</p>
+<p>When using the hotmail-server to deliver eMails, authenticating at that server with postfix/SASL results in the error logged in the mail syslogfile:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>[May 11 03:26:34] NOTICE[13665][C-000109c5] chan_sip.c: Call from '' (an.ip.addr.ess:port) to extension '00972597636927' rejected because extension not found in context 'local-context'.
-[May 11 03:26:34] NOTICE[13665][C-000109c6] chan_sip.c: Call from '' (an.ip.addr.ess:port) to extension '000972597636927' rejected because extension not found in context 'local-context'.
-[May 11 03:26:35] NOTICE[13665][C-000109c7] chan_sip.c: Call from '' (an.ip.addr.ess:port) to extension '900972597636927' rejected because extension not found in context 'local-context'.
-[May 11 03:49:53] NOTICE[13665][C-000109c8] chan_sip.c: Call from '' (an.ip.addr.ess:port) to extension '0000972597614173' rejected because extension not found in context 'local-context'.
+<div class="highlighter-rouge"><pre class="highlight"><code>... postfix/smtp[22318]: Untrusted TLS connection established to smtp-mail.outlook.com[65.55.162.200]:587: TLSv1 with cipher DES-CBC3-SHA (168/168 bits)
+... postfix/smtp[22318]: warning: TLS library problem: 22318:error:1408F10B:SSL routines:SSL3_GET_RECORD:wrong version number:s3_pkt.c:337:
 </code></pre>
 </div>
 
-<p>Fail2ban needed an additional <code class="highlighter-rouge">failregex</code> to match</p>
+<p>Debugging with <code class="highlighter-rouge">openssl s_client</code> confirmed, at least with some of Hotmails servers:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>failregex = (...)
-	^(%(__prefix_line)s|\[\]\s*)%(log_prefix)s Call from .*?\(&lt;HOST&gt;(:\d+)?\) to extension \S+ rejected because extension not found in context \S+
+<div class="highlighter-rouge"><pre class="highlight"><code>openssl s_client -starttls smtp -connect smtp-mail.outlook.com:587 -crlf
+...
+ehlo some.name
+...
+250-AUTH LOGIN PLAIN XOAUTH2
+250 OK
+140393594386088:error:1408F10B:SSL routines:SSL3_GET_RECORD:wrong version number:s3_pkt.c:337:
 </code></pre>
 </div>
 
-<p>NB.: eMails created by fail2ban did not show up with a correct <code class="highlighter-rouge">Date:</code>-header. Changing in <code class="highlighter-rouge">/etc/fail2ban/action.d/*</code>:</p>
+<p>All okay with SSLv3 only, <code class="highlighter-rouge">openssl s_client -starttls smtp -connect smtp-mail.outlook.com:587 -crlf -ssl3</code></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Date: `LC_TIME=C date -u +"%%a, %%d %%h %%Y %%T +0000"`
+<h2 id="enforce-sslv3-with-hotmail">enforce SSLv3 with Hotmail</h2>
+
+<p>With the framework in <code class="highlighter-rouge">main.cf</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+sender_dependent_relayhost_maps = hash:/etc/postfix/sender_relay
+sender_dependent_default_transport_maps = hash:/etc/postfix/sender_dependent_transport
 </code></pre>
 </div>
 
-<p>to</p>
+<p><code class="highlighter-rouge">master.cf</code> requires a specific transport defined:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Date: `LC_TIME=C date -R`
+<div class="highlighter-rouge"><pre class="highlight"><code>smtpsaslssl         unix    -       -       n       -       -       smtp
+        -o smtp_tls_mandatory_protocols=!SSLv2,!TLSv1
+        -o smtp_tls_protocols=!SSLv2,!TLSv1
 </code></pre>
 </div>
 
-<p>solved that.</p>
+<p>use the specific transport, <code class="highlighter-rouge">/etc/postfix/sender_dependent_transport</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;hotmail_address&gt;	smtpsaslssl:
+</code></pre>
+</div>
+
+<p>together with the entry in <code class="highlighter-rouge">sasl_passwd</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;hotmail_address&gt;	&lt;hotmail_address&gt;:&lt;hotmail_password&gt;
+</code></pre>
+</div>
+
+<p>and the entry in <code class="highlighter-rouge">sender_relay</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;hotmail_address&gt;	[smtp-mail.outlook.com]:587
+</code></pre>
+</div>
+
+<p>… <strong><em>works for me</em></strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>... postfix/smtp[3325]: Untrusted TLS connection established to smtp-mail.outlook.com[65.55.96.11]:25: SSLv3 with cipher RC4-MD5 (128/128 bits)
+</code></pre>
+</div>
+
 
     <hr>
     <div class="pagination btn-group">
       
-        <a class="btn prev" href="/postfix/2014/04/27/hotmail-postfix" title="Hotmail Postfix">&larr; Previous</a>
+        <a class="btn prev" href="/2013/10/03/gen2-installnotes.html" title="Gen2 Installnotes">&larr; Previous</a>
       
-        <a class="btn" href="/archive.html">Archive</a>
+        <a class="btn" href="">Archive</a>
       
-        <a class="btn next" href="/kde/2014/08/02/kmail2-evolution" title="Kmail2 Evolution">Next &rarr;</a>
+        <a class="btn next" href="/2014/05/11/fail2ban-asterisk.html" title="Fail2ban Asterisk">Next &rarr;</a>
       
     </div>
     <hr>
@@ -185,7 +215,7 @@
   <div class="span4">
     <section>
       <h4>Published</h4>
-      <div class="date"><span>11 May 2014</span></div>
+      <div class="date"><span>27 April 2014</span></div>
            
     </section>
     
@@ -193,7 +223,7 @@
         <h4>Category</h4>
         
         <span class="category">
-          fail2ban
+          postfix
         </span>
         
       </section>
@@ -208,7 +238,11 @@
 
   
      
-    	<li><a href="/tags.html#fail2ban asterisk-ref">fail2ban asterisk <span>1</span></a></li>
+    	<li><a href="#postfix-ref">postfix <span>1</span></a></li>
+     
+    	<li><a href="#hotmail-ref">hotmail <span>1</span></a></li>
+     
+    	<li><a href="#smtp-mail-ref">smtp-mail <span>1</span></a></li>
     
   
 
@@ -229,7 +263,7 @@
 
     <footer>
       <div class="container">
-        <p>&copy; 2018 Snoopy MUC
+        <p>&copy; 2018 
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://github.com/dhulihan/hooligan" target="_blank">The Hooligan Theme</a>
         </p>

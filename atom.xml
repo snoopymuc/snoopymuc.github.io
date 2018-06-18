@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
  
- <title>Snoopymuc's home</title>
- <link href="http://snoopymuc.github.io/atom.xml" rel="self"/>
- <link href="http://snoopymuc.github.io"/>
- <updated>2018-06-18T12:20:55+02:00</updated>
- <id>http://snoopymuc.github.io</id>
+ <title></title>
+ <link href="" rel="self"/>
+ <link href=""/>
+ <updated>2018-06-18T12:37:39+02:00</updated>
+ <id></id>
  <author>
-   <name>Snoopy MUC</name>
-   <email>snoopymuc@googlemail.com</email>
+   <name></name>
+   <email></email>
  </author>
 
  
  <entry>
    <title>Rspamd</title>
-   <link href="http://snoopymuc.github.io/2015/03/12/rspamd"/>
+   <link href="/2015/03/12/rspamd.html"/>
    <updated>2015-03-12T00:00:00+01:00</updated>
-   <id>http://snoopymuc.github.io/2015/03/12/rspamd</id>
+   <id>/2015/03/12/rspamd</id>
    <content type="html">&lt;p&gt;issue with surbl when using providers DNS-servers as forwarders - ask dns direct, surbl does not accept many requests
 HELO checks make no sense with fetchmail in front / documention in modules.conf missing, changed: helo_enabled = false; hostname_enabled = false;
 fuzzy_checks: highsecure.ru:11335 down
@@ -26,9 +26,9 @@ relies on strict mime structures?&lt;/p&gt;
  
  <entry>
    <title>Kmail2 Evolution</title>
-   <link href="http://snoopymuc.github.io/kde/2014/08/02/kmail2-evolution"/>
+   <link href="/2014/08/02/kmail2-evolution.html"/>
    <updated>2014-08-02T00:00:00+02:00</updated>
-   <id>http://snoopymuc.github.io/kde/2014/08/02/kmail2-evolution</id>
+   <id>/2014/08/02/kmail2-evolution</id>
    <content type="html">
 &lt;h3 id=&quot;semantic-desktop-and-kmail2---why-oh-why&quot;&gt;Semantic desktop and KMail2 - why, oh why?&lt;/h3&gt;
 
@@ -70,9 +70,9 @@ Retrospecting the backups for the “normal” condition which I did not pay att
  
  <entry>
    <title>Fail2ban Asterisk</title>
-   <link href="http://snoopymuc.github.io/fail2ban/2014/05/11/fail2ban-asterisk"/>
+   <link href="/2014/05/11/fail2ban-asterisk.html"/>
    <updated>2014-05-11T00:00:00+02:00</updated>
-   <id>http://snoopymuc.github.io/fail2ban/2014/05/11/fail2ban-asterisk</id>
+   <id>/2014/05/11/fail2ban-asterisk</id>
    <content type="html">
 &lt;h2 id=&quot;attempts-to-abuse-asterisk&quot;&gt;Attempts to abuse asterisk&lt;/h2&gt;
 
@@ -110,9 +110,9 @@ Retrospecting the backups for the “normal” condition which I did not pay att
  
  <entry>
    <title>Hotmail Postfix</title>
-   <link href="http://snoopymuc.github.io/postfix/2014/04/27/hotmail-postfix"/>
+   <link href="/2014/04/27/hotmail-postfix.html"/>
    <updated>2014-04-27T00:00:00+02:00</updated>
-   <id>http://snoopymuc.github.io/postfix/2014/04/27/hotmail-postfix</id>
+   <id>/2014/04/27/hotmail-postfix</id>
    <content type="html">
 &lt;h2 id=&quot;tlsv1-issue-with-hotmail-smtp-mailoutlookcom&quot;&gt;TLSv1 issue with hotmail, smtp-mail.outlook.com&lt;/h2&gt;
 
@@ -184,9 +184,9 @@ sender_dependent_default_transport_maps = hash:/etc/postfix/sender_dependent_tra
  
  <entry>
    <title>Gen2 Installnotes</title>
-   <link href="http://snoopymuc.github.io/gentoo/2013/10/03/gen2-installnotes"/>
+   <link href="/2013/10/03/gen2-installnotes.html"/>
    <updated>2013-10-03T00:00:00+02:00</updated>
-   <id>http://snoopymuc.github.io/gentoo/2013/10/03/gen2-installnotes</id>
+   <id>/2013/10/03/gen2-installnotes</id>
    <content type="html">
 &lt;h2 id=&quot;gen2-installation&quot;&gt;Gen2 installation&lt;/h2&gt;
 

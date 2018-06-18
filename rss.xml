@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-        <title>Snoopymuc's home</title>
-        <description>Snoopymuc's home - Snoopy MUC</description>
-        <link>http://snoopymuc.github.io</link>
-        <atom:link href="http://snoopymuc.github.io/rss.xml" rel="self" type="application/rss+xml" />
-        <lastBuildDate>Mon, 18 Jun 2018 12:20:55 +0200</lastBuildDate>
-        <pubDate>Mon, 18 Jun 2018 12:20:55 +0200</pubDate>
+        <title></title>
+        <description> - </description>
+        <link></link>
+        <atom:link href="" rel="self" type="application/rss+xml" />
+        <lastBuildDate>Mon, 18 Jun 2018 12:37:39 +0200</lastBuildDate>
+        <pubDate>Mon, 18 Jun 2018 12:37:39 +0200</pubDate>
         <ttl>60</ttl>
 
 
@@ -17,8 +17,8 @@ HELO checks make no sense with fetchmail in front / documention in modules.conf 
 fuzzy_checks: highsecure.ru:11335 down
 relies on strict mime structures?&lt;/p&gt;
 </description>
-                <link>http://snoopymuc.github.io/2015/03/12/rspamd</link>
-                <guid>http://snoopymuc.github.io/2015/03/12/rspamd</guid>
+                <link>/2015/03/12/rspamd.html</link>
+                <guid>/2015/03/12/rspamd</guid>
                 <pubDate>Thu, 12 Mar 2015 00:00:00 +0100</pubDate>
         </item>
 
@@ -61,8 +61,8 @@ Retrospecting the backups for the “normal” condition which I did not pay att
 
 &lt;p&gt;For indexing files, nepomuk allows to include/exclude directories. It might help to see a selective approach for mail storage as well?&lt;/p&gt;
 </description>
-                <link>http://snoopymuc.github.io/kde/2014/08/02/kmail2-evolution</link>
-                <guid>http://snoopymuc.github.io/kde/2014/08/02/kmail2-evolution</guid>
+                <link>/2014/08/02/kmail2-evolution.html</link>
+                <guid>/2014/08/02/kmail2-evolution</guid>
                 <pubDate>Sat, 02 Aug 2014 00:00:00 +0200</pubDate>
         </item>
 
@@ -101,8 +101,8 @@ Retrospecting the backups for the “normal” condition which I did not pay att
 
 &lt;p&gt;solved that.&lt;/p&gt;
 </description>
-                <link>http://snoopymuc.github.io/fail2ban/2014/05/11/fail2ban-asterisk</link>
-                <guid>http://snoopymuc.github.io/fail2ban/2014/05/11/fail2ban-asterisk</guid>
+                <link>/2014/05/11/fail2ban-asterisk.html</link>
+                <guid>/2014/05/11/fail2ban-asterisk</guid>
                 <pubDate>Sun, 11 May 2014 00:00:00 +0200</pubDate>
         </item>
 
@@ -175,8 +175,8 @@ sender_dependent_default_transport_maps = hash:/etc/postfix/sender_dependent_tra
 &lt;/div&gt;
 
 </description>
-                <link>http://snoopymuc.github.io/postfix/2014/04/27/hotmail-postfix</link>
-                <guid>http://snoopymuc.github.io/postfix/2014/04/27/hotmail-postfix</guid>
+                <link>/2014/04/27/hotmail-postfix.html</link>
+                <guid>/2014/04/27/hotmail-postfix</guid>
                 <pubDate>Sun, 27 Apr 2014 00:00:00 +0200</pubDate>
         </item>
 
@@ -294,8 +294,8 @@ Networking support &amp;gt; Bluetooth subsystem support &amp;gt; Bluetooth devic
 &lt;/div&gt;
 
 </description>
-                <link>http://snoopymuc.github.io/gentoo/2013/10/03/gen2-installnotes</link>
-                <guid>http://snoopymuc.github.io/gentoo/2013/10/03/gen2-installnotes</guid>
+                <link>/2013/10/03/gen2-installnotes.html</link>
+                <guid>/2013/10/03/gen2-installnotes</guid>
                 <pubDate>Thu, 03 Oct 2013 00:00:00 +0200</pubDate>
         </item>
 

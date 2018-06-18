@@ -1,0 +1,14 @@
+login at github.com, take the clone-URL
+https://github.com/snoopymuc/snoopymuc.github.io.git
+git push --repo=https://github.com/snoopymuc/snoopymuc.github.io.git
+
+
+cd /home/thomas/projects/web/jekylls/snoopymuc.github.io/_site
+git add --all
+git commit -m 'some comment...'
+git push
+
+cd /home/thomas/projects/web/jekylls/snoopymuc.github.io/_site
+git add --all
+git commit -a -m '2014042702'
+git push
